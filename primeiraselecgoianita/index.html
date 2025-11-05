@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação Final de Candidatos - Vendas Casa Goianita</title>
+    <!-- 1.2. Tipografia (Tokens) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,700;1,900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* 1.1. Paleta de Cores (Tokens) */
+        :root {
+            --primary-bg: #06192a;
+            --card-bg: #0A243D;
+            --accent-color: #00e800;
+            --text-primary: #ffffff;
+            --text-muted: #cccccc;
+            --text-subtle: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7);
+
+            /* 1.2. Tipografia (Tokens) */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Merriweather', serif;
+            --font-size-base: 1.1rem;
+            --font-size-h3: 1.5rem;
+            --font-size-h2: clamp(2rem, 4vw, 2.5rem);
+            --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+
+            /* 1.3. Espaçamento (Tokens) */
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --card-radius: 12px;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            background-color: var(--primary-bg);
+            /* 2.2. Textura de Fundo */
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Tipografia */
+        h1, h2, h3 {
+            color: var(--accent-color);
+            line-height: 1.2;
+            margin-top: 0;
+        }
+        h1 { font-size: var(--font-size-h1); }
+        h2 { font-size: var(--font-size-h2); }
+        h3 { font-size: var(--font-size-h3); color: var(--text-primary); }
+        p { color: var(--text-subtle); margin-bottom: var(--space-sm); }
+        .text-accent { color: var(--accent-color); font-weight: 600; }
+        .text-lead { font-size: 1.25rem; color: var(--text-muted); margin-bottom: var(--space-md); }
+        .merriweather { font-family: var(--font-secondary); font-style: italic; color: var(--text-muted); }
+
+        /* Layout e Estrutura */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-sm);
+        }
+        section {
+            padding: var(--space-xl) 0;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-md);
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-md);
+        }
+
+        /* 3. Estrutura e Layout: Cabeçalho */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(6, 25, 42, 0.9); /* Azul Petróleo semi-transparente */
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) 0;
+        }
+        .logo-img {
+            max-height: 40px;
+            width: auto;
+        }
+
+        /* 4.1. Card Padrão (.card) */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: var(--space-md);
+            border-radius: var(--card-radius);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* Para o overlay do link */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            /* Estados de Interação: :hover */
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), var(--accent-glow);
+        }
+        .card:focus-visible {
+            /* Estados de Interação: :focus-visible (Acessibilidade) */
+            outline: 3px solid var(--accent-color);
+            outline-offset: 4px;
+        }
+        .card-header {
+            margin-bottom: var(--space-sm);
+        }
+        .card-header h3 {
+            margin: 0;
+            line-height: 1.4;
+        }
+        .icon {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        .card ul {
+            padding-left: 1.2rem;
+            margin-top: 0.5rem;
+            color: var(--text-subtle);
+        }
+        .card ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Link de CV em Evidência */
+        .cv-link {
+            color: var(--accent-color); /* Destaca o nome do candidato */
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+        }
+        .cv-link:hover {
+            color: var(--text-primary); /* Inversão de cores no hover */
+        }
+        .cv-link .icon {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+
+        /* 4.2. Card de Diagnóstico (Proposta Comercial) - Usado para Destaque */
+        .card-highlight {
+            border-left: 3px solid var(--accent-color);
+            padding-left: calc(var(--space-md) - 3px); /* Ajusta padding para manter alinhamento */
+        }
+        .card-highlight .merriweather {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+        }
+
+        /* Caixa de Instrução para o Recrutador */
+        .instruction-box {
+            background-color: rgba(0, 232, 0, 0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: var(--space-sm);
+            border-radius: var(--card-radius);
+            margin-top: var(--space-md);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        .instruction-box i {
+            margin-right: var(--space-sm);
+        }
+
+        /* Destaque para desclassificados */
+        .desclassificado {
+            color: #ff6347; /* Vermelho suave */
+            font-style: italic;
+        }
+
+        /* Guia de Entrevista Destaque */
+        .interview-guide-box {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            padding: var(--space-md);
+            border-radius: var(--card-radius);
+            text-align: center;
+            margin-bottom: var(--space-md);
+        }
+        .interview-guide-box a {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+
+        /* 5. Animações e Performance */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            opacity: 0; /* Inicialmente invisível */
+            transform: translateY(20px);
+        }
+        .fade-in.is-visible {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: var(--space-md) 0;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- 3. Estrutura e Layout: Cabeçalho -->
+    <header>
+        <div class="container header-content">
+            <img class="logo-img" src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" alt="Logo Principal da Live Consultoria" loading="lazy">
+            <h3 style="color: var(--text-primary); font-size: 1.25rem;">Avaliação de Talentos</h3>
+        </div>
+    </header>
+
+    <main>
+        <!-- SEÇÃO PRINCIPAL: Introdução e Contexto -->
+        <section style="padding-top: calc(var(--space-xl) + 60px);">
+            <div class="container fade-in">
+                <h1 class="text-accent">Recrutamento Casa Goianita: Foco em Vendas e Relacionamento</h1>
+                <p class="text-lead">Análise final dos perfis com maior alinhamento à vaga de Vendedor(a) da Casa Goianita, que exige <strong>foco total no cliente</strong> e <strong>vivência em alto padrão</strong>.</p>
+                
+                <div class="interview-guide-box fade-in" style="animation-delay: 0.1s;">
+                    <i data-lucide="chevrons-right" style="color: var(--accent-color); vertical-align: middle;"></i>
+                    <a href="https://processo-entrevista.netlify.app/" target="_blank">Acesse o Guia de Entrevistas & Role Play</a>
+                    <p style="color: var(--text-subtle); margin-top: 0.5rem; margin-bottom: 0;">Ferramenta essencial para a próxima etapa da seleção.</p>
+                </div>
+
+                <div class="card fade-in" style="margin-top: var(--space-md); animation-delay: 0.2s;">
+                    <p class="merriweather">
+                        <span class="text-accent">Candidatos Desclassificados/Outro Foco:</span>
+                        Vaneska Cirilo (Não atende escolaridade obrigatória), Carlos Lima e André Luis Martins (Desclassificados), Juliana Benignos (Recusou Proposta), Bruno Sousa de Almeida (Foco em Administrativo).
+                        <br>
+                        <span class="text-subtle">CVs para referência:</span>
+                        <a href="https://docs.google.com/document/d/1FBvgTej010vXIRrBWw-6OsypAEtAj-KV/edit?usp=sharing&ouid=105131605658621100655&rtpof=true&sd=true" target="_blank" class="desclassificado">Vaneska</a>, 
+                        <a href="https://docs.google.com/document/d/1_oqFgmuF6g5zrmum9hnz3NJhzx35Ces4/edit?rtpof=true&tab=t.0" target="_blank" class="desclassificado">Carlos</a>, 
+                        <a href="https://docs.google.com/document/d/1-MrJkWCkkIb_NZ0wRKdnPvccL5hjmQj-/edit?usp=sharing&ouid=105131605658621100655&rtpof=true&sd=true" target="_blank" class="desclassificado">André</a>,
+                        <a href="https://drive.google.com/file/d/1gZyQr4IyjrMkWwNJEoqfUMNEaQTmZWY8/view?usp=sharing" target="_blank" class="desclassificado">Bruno Sousa</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 1: Top Talentos (Melhor Adequação) -->
+        <section>
+            <div class="container">
+                <h2 class="fade-in">1. Top Talentos para a Vaga de Vendas <i data-lucide="star"></i></h2>
+                <p class="text-lead fade-in" style="animation-delay: 0.1s;">Candidatos com o maior alinhamento entre experiência, habilidades de relacionamento e foco em resultados.</p>
+                
+                <div class="instruction-box fade-in" style="animation-delay: 0.2s;">
+                    <i data-lucide="mouse-pointer"></i>
+                    <span class="text-primary">Para acessar o Currículo, <span class="text-accent">clique no NOME do candidato</span> no topo do card.</span>
+                </div>
+
+                <div class="grid-2" style="margin-top: var(--space-md);">
+                    
+                    <!-- Card Iury -->
+                    <div class="card card-highlight fade-in" tabindex="0" style="animation-delay: 0.3s;">
+                        <div class="card-header">
+                            <i data-lucide="handshake" class="icon"></i>
+                            <h3>
+                                <a href="https://docs.google.com/document/d/1Tca4fUh0smzhmX4RbgfrSWtoNn7QqXlm/edit" target="_blank" class="cv-link">
+                                    Iury Oliveira Gomes <i data-lucide="external-link" class="icon" size="18"></i>
+                                </a>
+                            </h3>
+                        </div>
+                        <p class="merriweather">Perfil de <span class="text-accent">Venda de Alto Valor e Relacionamento de Longo Prazo</span>.</p>
+                        <ul>
+                            <li><span class="text-accent">Força:</span> 4 anos como Corretor de Imóveis (RE/MAX) e Perito em Avaliação. Indica capacidade de lidar com <strong>negócios complexos e clientes de alto padrão</strong>.</li>
+                            <li><span class="text-accent">Habilidades:</span> Formação em Transações Imobiliárias (CRECI) e Gestão Empresarial.</li>
+                            <li><span class="text-accent">Insight:</span> Sua experiência em <strong>redes de contato (cerimonialistas/arquitetos)</strong> deve ser validada na entrevista.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Card Bruno dos Anjos -->
+                    <div class="card fade-in" tabindex="0" style="animation-delay: 0.4s;">
+                        <div class="card-header">
+                            <i data-lucide="trending-up" class="icon"></i>
+                            <h3>
+                                <a href="https://drive.google.com/file/d/1ERnETdrTmhpaVtdSvKCr0vF-9YxNYfUH/view?usp=sharing" target="_blank" class="cv-link">
+                                    Bruno Dos Anjos <i data-lucide="external-link" class="icon" size="18"></i>
+                                </a>
+                            </h3>
+                        </div>
+                        <p class="merriweather">Perfil de <span class="text-accent">Crescimento e Liderança em Vendas</span>, ideal para ser moldado.</p>
+                        <ul>
+                            <li><span class="text-accent">Força:</span> Progressão rápida: Vendedor Interno/Externo → Supervisor de Loja. Demonstra <strong>foco em resultados e gestão de equipe</strong>.</li>
+                            <li><span class="text-accent">Habilidades:</span> Cursando Gestão Comercial. Menciona "relacionamentos sólidos" e "negociação".</li>
+                            <li><span class="text-accent">Insight:</span> Deve confirmar como transferirá a experiência em PVC para a venda consultiva de alto valor (Casa Goianita).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: Candidatos Sólidos (Boa Adequação) -->
+        <section>
+            <div class="container">
+                <h2 class="fade-in">2. Candidatos Sólidos e de Apoio <i data-lucide="users"></i></h2>
+                <p class="text-lead fade-in" style="animation-delay: 0.1s;">Perfis com boa experiência em vendas/gestão, mas que exigem validação de aderência ao alto padrão da loja.</p>
+
+                <div class="instruction-box fade-in" style="animation-delay: 0.2s;">
+                    <i data-lucide="mouse-pointer"></i>
+                    <span class="text-primary">Para acessar o Currículo, <span class="text-accent">clique no NOME do candidato</span> no topo do card.</span>
+                </div>
+
+                <div class="grid-3" style="margin-top: var(--space-md);">
+                    
+                    <!-- Card Michel -->
+                    <div class="card fade-in" tabindex="0" style="animation-delay: 0.3s;">
+                        <div class="card-header">
+                            <i data-lucide="briefcase" class="icon"></i>
+                            <h3>
+                                <a href="https://drive.google.com/file/d/1wOPgSeQKuQb8foiodNdMWk5wkwTUgf7u/view?usp=sharing" target="_blank" class="cv-link">
+                                    Michel Sabino <i data-lucide="external-link" class="icon" size="18"></i>
+                                </a>
+                            </h3>
+                        </div>
+                        <p class="merriweather">Perfil de <span class="text-accent">Gestão de Vendas / Liderança</span>.</p>
+                        <ul>
+                            <li><span class="text-accent">Força:</span> Experiência como Gerente de Vendas (BM Motors) e Supervisor (PAGGO). Forte foco em metas e indicadores.</li>
+                            <li><span class="text-accent">Habilidades:</span> Visão estratégica, negociação e liderança de equipes.</li>
+                            <li><span class="text-accent">Insight:</span> Validar se o estilo de venda rápida (Telecom/Auto) se adapta à <strong>venda consultiva e paciente</strong> da Casa Goianita.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Card Fábio -->
+                    <div class="card fade-in" tabindex="0" style="animation-delay: 0.4s;">
+                        <div class="card-header">
+                            <i data-lucide="clipboard-list" class="icon"></i>
+                            <h3>
+                                <a href="https://drive.google.com/file/d/1mWTmx_kcg_-TTzIEkIpMyy48-VYeu_jj/view?usp=sharing" target="_blank" class="cv-link">
+                                    Fábio Cantuário <i data-lucide="external-link" class="icon" size="18"></i>
+                                </a>
+                            </h3>
+                        </div>
+                        <p class="merriweather">Perfil <span class="text-accent">Administrativo e Supervisor de Equipes</span>.</p>
+                        <ul>
+                            <li><span class="text-accent">Força:</span> Graduado em Administração, experiência como Supervisor de Vendas e Líder de Loja (Atacadão).</li>
+                            <li><span class="text-accent">Habilidades:</span> Liderança, Treinamentos, Vendas por Telefone (Ciclo Engenharia).</li>
+                            <li><span class="text-accent">Insight:</span> Validar a motivação para retornar à <strong>execução de vendas</strong> (chão de loja) após experiência em gestão.</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: Insights Estratégicos -->
+        <section>
+            <div class="container">
+                <h2 class="fade-in">3. Insights Estratégicos para a Entrevista <i data-lucide="lightbulb"></i></h2>
+                <p class="text-lead fade-in" style="animation-delay: 0.1s;">Perguntas-chave focadas em validar os diferenciais da vaga (CRM/ERP, vivência no segmento, rede de contatos) para os candidatos que seguem no processo.</p>
+
+                <div class="grid-2" style="margin-top: var(--space-md);">
+                    
+                    <!-- Card Comparação -->
+                    <div class="card card-highlight fade-in" tabindex="0" style="animation-delay: 0.2s;">
+                        <div class="card-header">
+                            <i data-lucide="git-branch" class="icon"></i>
+                            <h3>Comparação Direta (Bruno dos Anjos vs. Iury)</h3>
+                        </div>
+                        <ul>
+                            <li><span class="text-accent">Bruno dos Anjos (Supervisor/PVC):</span> Pergunte sobre a visão de <strong>Gestão da Experiência do Cliente (CX)</strong>. Como ele garantiria o relacionamento pós-venda em itens de luxo?</li>
+                            <li><span class="text-accent">Iury:</span> Pergunte sobre a <strong>qualidade da rede de contatos</strong> em Brasília e Goiânia. Como ele traria essa rede (Cerimonialistas/Arquitetos) para a Casa Goianita?</li>
+                            <li><span class="text-accent">Ambos:</span> Validar o conhecimento prático em <strong>CRM/ERP</strong> (diferencial da vaga).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Card Validação de Perfil Sólido -->
+                    <div class="card fade-in" tabindex="0" style="animation-delay: 0.3s;">
+                        <div class="card-header">
+                            <i data-lucide="message-square" class="icon"></i>
+                            <h3>Validação dos Perfis Michel e Fábio</h3>
+                        </div>
+                        <ul>
+                            <li><span class="text-accent">Michel:</span> Peça exemplos de como ele usa o CRM/ERP para gerenciar seu funil de vendas, focando na <strong>qualidade</strong> da venda, não apenas na quantidade.</li>
+                            <li><span class="text-accent">Fábio:</span> Peça para simular o <strong>Cenário B</strong> (Objeção de Preço). Avalie a argumentação dele na defesa do valor, e não do desconto.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 3. Estrutura e Layout: Rodapé -->
+    <footer>
+        <div class="container">
+            <!-- 2.1. Logos: Rodapé (Proposta) -->
+            <img class="logo-img" src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-34.png" alt="Logo Live Consultoria" loading="lazy" style="margin-bottom: 10px;">
+            <p>Análise de Talentos desenvolvida pela Live Consultoria | Goiânia, Goiás</p>
+        </div>
+    </footer>
+
+    <script>
+        // Função para iniciar os ícones Lucide
+        lucide.createIcons();
+
+        // 5. Animações e Performance: Intersection Observer para fade-in
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            // Opções do Observer: Margem de 10% da viewport
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Para que a animação ocorra apenas uma vez
+                    }
+                });
+            }, observerOptions);
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+
+        // 6. Padrões de Acessibilidade: Script para garantir foco visível em cards (redundância)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('focus', () => {
+                card.classList.add('is-focused');
+            });
+            card.addEventListener('blur', () => {
+                card.classList.remove('is-focused');
+            });
+        });
+
+    </script>
+</body>
+</html>
