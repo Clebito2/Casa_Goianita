@@ -3,98 +3,648 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conselho Gestor - Casa Goianita</title>
+    <title>Guia do Conselho Gestor - Grupo Goianita | Live Consultoria</title>
+    
+    <!-- Importação das Fontes (Poppins e Merriweather) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;1,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght @AppData\Local\Perplexity\Comet\User Data\Default\Local Storage\leveldb\000487.log,400;1,700&family=Poppins:wght @AppData\Local\Microsoft\Edge\User Data\Default\Code Cache\js\fdb098b17300d91e_0;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* 1. NÚCLEO DA IDENTIDADE VISUAL (TOKENS OBRIGATÓRIOS) */
         :root {
+            /* Paleta Principal */
             --primary-bg: #06192a;
             --card-bg: #0A243D;
             --accent-color: #00e800;
+
+            /* Textos */
             --text-primary: #ffffff;
             --text-muted: #cccccc;
             --text-subtle: #a0a0a0;
+
+            /* Bordas e Efeitos */
             --border-color: rgba(255, 255, 255, 0.1);
             --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7);
+
+            /* Tipografia */
             --font-primary: 'Poppins', sans-serif;
-            --font-secondary: 'Merriweather', serif;
+            --font-secondary: 'Merriweather', serif; /* Reservado para propostas */
+
+            /* Tamanhos de Fonte (Mobile-First) */
             --font-size-base: 1.1rem;
             --font-size-h3: 1.5rem;
             --font-size-h2: clamp(2rem, 4vw, 2.5rem);
             --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+
+            /* Escala de Espaçamento */
             --space-sm: 1rem;
             --space-md: 2rem;
             --space-lg: 4rem;
-            --space-xl: 6rem;
         }
-        body {
-            font-family: var(--font-primary);
-            color: var(--text-primary);
-            background-color: var(--primary-bg);
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-            background-attachment: fixed;
+
+        /* 2. ESTILOS GLOBAIS E ESTRUTURA DE FUNDO (OBRIGATÓRIO) */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
         }
-        .container {
+
+        body {
+            background-color: var(--primary-bg);
+            /* Textura de Fundo Obrigatória com Efeito Fixo */
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed;
+            
+            font-family: var(--font-primary);
+            color: var(--text-subtle);
+            line-height: 1.7;
+            padding-top: 80px; /* Espaço para o header fixo */
+        }
+
+        /* 3. ESTRUTURA SEMÂNTICA (HEADER, MAIN, FOOTER) */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            
+            /* Fundo semi-transparente com blur */
+            background-color: rgba(6, 25, 42, 0.8); /* --primary-bg com alpha */
+            backdrop-filter: blur(10px);
+            
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--space-sm) 0;
+        }
+        
+        .header-container, .footer-container, main {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--space-md) var(--space-sm);
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 var(--space-md);
         }
-        header {
-            padding: var(--space-md) 0;
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            height: 40px; /* Altura padrão do logo no header */
+            width: auto;
+        }
+
+        main {
+            padding-top: var(--space-md);
+            padding-bottom: var(--space-md);
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        .site-footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: var(--space-md) var(--space-md) var(--space-lg) var(--space-md);
+            margin-top: var(--space-lg);
             text-align: center;
         }
-        main {
-            padding: var(--space-lg) 0;
+
+        /* CORREÇÃO: Garante que os parágrafos no rodapé também sejam centralizados */
+        .site-footer p {
+            margin-left: auto;
+            margin-right: auto;
         }
+
+        .footer-logo {
+            height: 50px;
+            width: auto;
+            margin-bottom: var(--space-sm);
+            opacity: 0.8;
+        }
+        
+        /* 4. TIPOGRAFIA E TEXTO */
+        h1, h2, h3, h4 {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            margin-bottom: var(--space-sm);
+        }
+
+        h1 { 
+            font-size: var(--font-size-h1); 
+            color: var(--accent-color); /* Título principal sempre em verde */
+            font-weight: 700;
+        }
+        
+        h2 { 
+            font-size: var(--font-size-h2); 
+            color: var(--accent-color); /* Títulos de seção em verde */
+            margin-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: var(--space-sm);
+        }
+
+        h3 { 
+            font-size: var(--font-size-h3); 
+            color: var(--text-primary);
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        p, li {
+            font-size: var(--font-size-base);
+            max-width: 75ch; /* Limite de linha para legibilidade */
+        }
+        
+        p + p {
+            margin-top: var(--space-sm);
+        }
+
+        ul, ol {
+            padding-left: var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Acessibilidade: Estado de foco visível */
+        a:hover, a:focus-visible {
+            text-decoration: underline;
+            outline: none;
+        }
+
+        strong {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* 5. COMPONENTE .CARD (OBRIGATÓRIO) */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: var(--space-md);
             border-radius: 12px;
+            padding: var(--space-md);
+            
+            /* Estados de Interação (Obrigatório) */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), var(--accent-glow);
+        }
+
+        /* Acessibilidade: Foco visível */
+        .card:focus-visible,
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 3px;
+        }
+
+        /* 6. LAYOUTS INTERNOS (Grid, Colunas) */
+        
+        /* Grid para Seção de Objetivos */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr; /* Mobile-first */
+            gap: var(--space-md);
+        }
+
+        /* Layout de Duas Colunas (para Votação e Avaliação) */
+        .two-col-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        /* 7. COMPONENTES ESPECÍFICOS (Timeline) */
+        .timeline {
+            position: relative;
+            padding-left: var(--space-md);
+            margin-top: var(--space-md);
+        }
+        
+        /* A linha vertical verde */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 3px;
+            background-color: var(--accent-color);
+            opacity: 0.3;
+        }
+        
+        .timeline-item {
+            position: relative;
             margin-bottom: var(--space-md);
         }
+        
+        /* O pino verde na linha */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1 * var(--space-md) - (12px / 2) + 1.5px); /* Centraliza no pino */
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 2px solid var(--primary-bg);
+            z-index: 1;
+        }
+        
+        .timeline-item h4 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .timeline-item p {
+            font-size: 1rem;
+            color: var(--text-subtle);
+        }
+
+        /* 8. ANIMAÇÃO DE ENTRADA (OBRIGATÓRIO) */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
+            /* A animação é aplicada via JS */
         }
-        .is-visible {
+        
+        .fade-in.is-visible {
+            /* Ativa a animação quando o JS adiciona a classe */
             animation: fadeIn 0.8s ease-out forwards;
         }
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
+        /* 9. Estilos para a nova seção de links */
+        .document-item {
+            border-top: 1px solid var(--border-color);
+            padding-top: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .document-item h4 {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .document-item p {
+            margin-bottom: var(--space-sm);
+            font-size: 1rem;
+        }
+
+        /* Botão de link */
+        .button-link {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            font-weight: 700;
+            font-family: var(--font-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .button-link:hover, .button-link:focus-visible {
+            background-color: var(--text-primary);
+            text-decoration: none;
+            box-shadow: var(--accent-glow);
+        }
+        
+        /* Lista de documentos pendentes */
+        .document-list {
+            list-style-type: '— ';
+            padding-left: var(--space-md);
+            color: var(--text-subtle);
+        }
+        
+        .document-list li {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .placeholder {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--text-subtle);
+            opacity: 0.7;
+            margin-left: 0.5rem;
+        }
+
+        /* 10. MEDIA QUERIES (Mobile-First) */
+        @AppData\Local\Google\Chrome\User Data\Default\MediaDeviceSalts-journal (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .two-col-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @AppData\Local\Google\Chrome\User Data\Default\MediaDeviceSalts-journal (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
     </style>
 </head>
 <body>
-    <header class="container">
-        <h1 class="fade-in">Estatuto do Conselho Gestor</h1>
+
+    <!-- CABEÇALHO FIXO (OBRIGATÓRIO) -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="#" aria-label="Live Consultoria - Página Inicial">
+                <!-- Logo Principal (Padrão para fundo escuro) -->
+                <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png"
+                     alt="Logo da Live Consultoria"
+                     class="header-logo"
+                     loading="lazy">
+            </a>
+            <!-- Links de navegação (exemplo) -->
+            <nav>
+                <!-- Links removidos conforme solicitado -->
+            </nav>
+        </div>
     </header>
-    <main class="container">
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <!-- Card 1: Título e Propósito -->
         <section class="card fade-in">
-            <h2>Aguardando conteúdo...</h2>
-            <p>Esta página está pronta para receber o conteúdo da apresentação sobre o Estatuto do Conselho Gestor.</p>
+            <h1>Guia de Implantação: Conselho Gestor Goianita</h1>
+            <p style="font-size: 1.2rem; color: var(--text-muted); margin-top: calc(-1 * var(--space-sm)); margin-bottom: var(--space-sm);">
+                Baseado no Estatuto Oficial do Grupo
+            </p>
+            <p>
+                Com fundamento no legado empresarial da família controladora, o Conselho Gestor do Grupo Goianita é instituído para assegurar a <strong>perenidade, profissionalização e continuidade geracional</strong>.
+            </p>
+            <p>
+                Este guia detalha o funcionamento deste órgão colegiado, permanente, estratégico e deliberativo, que atua na supervisão superior da gestão, <strong>sem exercer funções executivas</strong> (Art. 1º).
+            </p>
         </section>
+
+        <!-- NOVO CARD: Roteiro de Apresentação e Documentos -->
+        <section class="card fade-in">
+            <h2>Roteiro de Apresentação e Documentos</h2>
+            <p style="margin-top: calc(-1 * var(--space-md) + var(--space-sm)); margin-bottom: var(--space-md);">
+                Siga esta ordem cronológica para apresentar e formalizar a instalação do Conselho.
+            </p>
+
+            <!-- 1. Documento Mestre -->
+            <div class="document-item">
+                <h4>1. Documento Mestre (Fundação e Instalação)</h4>
+                <p>
+                    Este é o documento central. Ele contém o Estatuto, o Regimento Interno, o Código de Conduta e, ao final, todos os anexos do "Kit de Instalação" (Ata, Termo de Posse, etc.).
+                </p>
+                <a href="https://docs.google.com/document/d/1DC7JFD66A9aDCzVMcGC2JF0yuKjM92DVHjvMAUR5BlA/edit?usp=sharing" target="_blank" class="button-link" rel="noopener noreferrer">
+                    Abrir Documento Mestre
+                </a>
+            </div>
+        </section>
+
+        <!-- Card 3: Objetivos Principais -->
+        <section class="fade-in">
+            <h2 style="border: none; padding-bottom: 0;">Resumo do Estatuto: Objetivos (Art. 1º-A)</h2>
+            
+            <div class="grid-container" style="margin-top: var(--space-md);">
+                
+                <div class="card">
+                    <h3>Orientação Estratégica</h3>
+                    <p>Definir e revisar a visão, missão e objetivos de longo prazo, garantindo um caminho sustentável e lucrativo.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Governança Corporativa</h3>
+                    <p>Estabelecer e supervisionar práticas de governança, promovendo transparência, responsabilidade e integridade.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Supervisão Financeira</h3>
+                    <p>Supervisionar a saúde financeira, aprovar orçamentos anuais e investimentos significativos.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Gestão de Riscos</h3>
+                    <p>Identificar, avaliar e gerenciar riscos legais, financeiros, operacionais e de reputação.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Supervisão Executiva</h3>
+                    <p>Oferecer apoio e supervisão à gestão executiva, incluindo nomeação, avaliação e substituição de executivos-chave.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Rel. com Stakeholders</h3>
+                    <p>Gerenciar e otimizar o relacionamento da empresa com acionistas, clientes, funcionários, fornecedores e a comunidade.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Card 4: Estrutura e Votação -->
+        <section class="card fade-in">
+            <h2 style="border: none; padding-bottom: 0;">Resumo do Estatuto: Estrutura e Votação (Art. 4º e 8º)</h2>
+
+            <div class="two-col-layout" style="margin-top: var(--space-md);">
+                
+                <!-- Coluna da Composição -->
+                <div>
+                    <h3>Composição dos Membros (5 a 9)</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="border-left: 3px solid var(--accent-color); padding-left: var(--space-sm); margin-bottom: var(--space-sm);">
+                            <h4>Conselheiro Interno (Peso de Voto 2)</h4>
+                            <p>Membros pertencentes ao quadro de sócios da GOIANITA.</p>
+                        </li>
+                        <li style="border-left: 3px solid var(--border-color); padding-left: var(--space-sm); margin-bottom: var(--space-sm);">
+                            <h4>Conselheiro Externo (Peso de Voto 1)</h4>
+                            <p>Pessoas com vínculo (consultorias, contabilidade, investidores, fornecedores, etc.).</p>
+                        </li>
+                        <li style="border-left: 3px solid var(--border-color); padding-left: var(--space-sm);">
+                            <h4>Convidados Técnicos (Sem Voto)</h4>
+                            <p>Especialistas convocados para pautas específicas.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Coluna da Deliberação -->
+                <div>
+                    <h3>Deliberação e Funcionamento</h3>
+                     <ul style="list-style-type: '✓ '; padding-left: var(--space-md);">
+                        <li style="padding-left: 0.5rem; margin-bottom: 0.5rem;">
+                            <strong>Reuniões Quinzenais:</strong> Convocação com 48h de antecedência.
+                        </li>
+                        <li style="padding-left: 0.5rem; margin-bottom: 0.5rem;">
+                            <strong>Fechamento da Pauta:</strong> 24h antes da reunião.
+                        </li>
+                        <li style="padding-left: 0.5rem; margin-bottom: 0.5rem;">
+                            <strong>Quórum:</strong> Decisões por maioria de votos (soma dos pesos) dos presentes.
+                        </li>
+                        <li style="padding-left: 0.5rem; margin-bottom: 0.5rem;">
+                            <strong>Voto de Minerva:</strong> Em caso de empate, o Presidente do Conselho decide.
+                        </li>
+                         <li style="padding-left: 0.5rem;">
+                            <strong>Documentação:</strong> Todas as reuniões são registradas em atas e salvas em repositório online.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 5: Pilares Éticos e Processos -->
+        <section class="card fade-in">
+            <h2 style="border: none; padding-bottom: 0;">Resumo do Estatuto: Pilares Éticos (Cap. V)</h2>
+            
+            <!-- Sub-seção 1: Confidencialidade -->
+            <div style="margin-top: var(--space-md); margin-bottom: var(--space-md);">
+                <h3>Confidencialidade Absoluta (Art. 9º)</h3>
+                <p>Membros devem manter <strong>sigilo absoluto</strong> sobre todas as informações acessadas. Este dever perdura por <strong>5 (cinco) anos após o desligamento</strong>, sujeito a cláusula de penalidade em caso de violação.</p>
+            </div>
+            
+            <!-- Sub-seção 2: Gestão de Conflitos (Timeline) -->
+            <div style="margin-bottom: var(--space-md);">
+                <h3>Processo de Gestão de Conflitos (Art. 9º-A)</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Passo 1: Comunicação</h4>
+                        <p>A parte envolvida comunica formalmente o conflito em reunião.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Passo 2: Mediação</h4>
+                        <p>O Conselho promove uma sessão de mediação para buscar uma solução consensual.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Passo 3: Comitê Ad Hoc</h4>
+                        <p>Se a mediação falhar, o Presidente forma um comitê com 3 membros neutros.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Passo 4: Parecer Técnico</h4>
+                        <p>O comitê analisa os fatos e emite um parecer com a solução recomendada.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Passo 5: Deliberação</h4>
+                        <p>O plenário (excluindo as partes) vota o parecer.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Passo 6: Execução Mandatória</h4>
+                        <p>A solution aprovada pelo conselho é final e deve ser acatada por todos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub-seção 3: Canal de Denúncias -->
+            <div>
+                <h3>Canal de Denúncia de Violações (Art. 9º-B)</h3>
+                <ul style="list-style-type: '→ '; padding-left: var(--space-md);">
+                    <li style="padding-left: 0.5rem;">Link de formulário online (no grupo de WhatsApp) para postagem <strong>anônima</strong>.</li>
+                    <li style="padding-left: 0.5rem;">Sistema notifica <strong>automaticamente todos os membros</strong> por e-mail.</li>
+                    <li style="padding-left: 0.5rem;">Membro questionado terá <strong>5 dias úteis</strong> para apresentar sua defesa prévia.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Card 6: Avaliação e Desenvolvimento -->
+        <section class="card fade-in">
+            <h2 style="border: none; padding-bottom: 0;">Resumo do Estatuto: Avaliação (Cap. VI)</h2>
+
+            <div class="two-col-layout" style="margin-top: var(--space-md);">
+                
+                <!-- Coluna da Avaliação -->
+                <div>
+                    <h3>Avaliação de Desempenho (Art. 10º)</h3>
+                    <p>O Conselho realizará avaliações anuais de seu próprio desempenho, baseadas nos seguintes KPIs:</p>
+                    <ul style="list-style: disc; padding-left: var(--space-md); margin-top: var(--space-sm);">
+                        <li>Cumprimento do planejamento estratégico anual.</li>
+                        <li>Desvio de investimentos vs. planejado.</li>
+                        <li>Tempo médio de deliberação.</li>
+                        <li>Economia média negociada em contratos.</li>
+                        <li>Participação em ações de autodesenvolvimento.</li>
+                    </ul>
+                </div>
+                
+                <!-- Coluna do Desenvolvimento -->
+                <div>
+                    <h3>Desenvolvimento Contínuo (Art. 10º-A)</h3>
+                    <p>Cada membro se compromete a manter-se tecnicamente atualizado, através de:</p>
+                     <ul style="list-style: disc; padding-left: var(--space-md); margin-top: var(--space-sm);">
+                        <li>Participação regular em cursos e workshops.</li>
+                        <li>Criação de Planos de Desenvolvimento Individual (PDI).</li>
+                        <li>Sessões de compartilhamento de conhecimento.</li>
+                        <li>Reunião semestral para monitorar o PDI.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <!-- RODAPÉ (OBRIGATÓRIO) -->
+    <footer class="site-footer">
+        <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png"
+             alt="Logo da Live Consultoria"
+             class="footer-logo"
+             loading="lazy">
+        <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 600;">Consultoria em Gestão e Governança</p>
+        <p style="color: var(--text-subtle); margin-top: var(--space-sm);">luizportal @ecossistemalive.com.br</p>
+    </footer>
+
+    <!-- SCRIPT DE ANIMAÇÃO (OBRIGATÓRIO) -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.fade-in');
+        // IntersectionObserver para ativar a animação de fade-in
+        document.addEventListener("DOMContentLoaded", () => {
+            // Seleciona todos os elementos que devem ser animados
+            const targets = document.querySelectorAll('.fade-in');
+
+            // Configura o observador
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
+                    // Se o elemento estiver visível (intersecting) ou seja, entrou na viewport
                     if (entry.isIntersecting) {
+                        // Adiciona a classe 'is-visible' para disparar a animação CSS
                         entry.target.classList.add('is-visible');
+                        // Para de observar o elemento para não animar novamente
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1 });
-            elements.forEach(element => {
-                observer.observe(element);
+            }, {
+                threshold: 0.1 // Dispara quando 10% do elemento estiver visível
+            });
+
+            // Inicia a observação para cada elemento alvo
+            targets.forEach(target => {
+                observer.observe(target);
             });
         });
     </script>
+
 </body>
 </html>
